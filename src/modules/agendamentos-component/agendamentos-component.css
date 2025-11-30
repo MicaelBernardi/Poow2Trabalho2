@@ -1,0 +1,49 @@
+/* --- CORREÇÃO DE PADDING (Inputs e Selects não colarem) --- */
+::ng-deep input.mat-mdc-input-element { padding-left: 12px !important; }
+::ng-deep .mat-mdc-select-value { padding-left: 12px !important; }
+::ng-deep .mat-mdc-select-placeholder { padding-left: 12px !important; }
+::ng-deep .mat-mdc-select-arrow-wrapper { padding-right: 12px !important; }
+
+/* --- CORREÇÃO DE FUNDOS TRANSPARENTES --- */
+/* Dropdown Branco */
+::ng-deep .mat-mdc-select-panel {
+  background-color: #ffffff !important;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3) !important;
+}
+/* Calendário Branco */
+::ng-deep .mat-datepicker-content {
+  background-color: #ffffff !important;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3) !important;
+  border-radius: 4px;
+}
+::ng-deep .mat-calendar-header { background-color: #ffffff !important; }
+::ng-deep .mat-calendar-body-label, ::ng-deep .mat-calendar-period-button { color: #000000 !important; }
+
+/* Opções do Dropdown */
+::ng-deep .mat-mdc-option { color: #000000 !important; }
+::ng-deep .mat-mdc-option:hover { background-color: #f0f0f0 !important; }
+::ng-deep .mat-mdc-option.mdc-list-item--selected { background-color: #e7f1ff !important; font-weight: 600; }
+
+/* --- CENTRALIZAÇÃO DO FILTRO (Texto visível) --- */
+::ng-deep .filtro-centralizado .mat-mdc-select-value {
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* --- ESTILOS DE BOTÃO E TABELA --- */
+.linha-hover { transition: background-color 0.2s ease; cursor: pointer; }
+.linha-hover:hover { background-color: #e3f2fd !important; }
+
+.btn-cyan {
+  background-color: #0dcaf0 !important;
+  color: white !important;
+  transition: background-color 0.3s;
+}
+.btn-cyan:hover:not([disabled]) { background-color: #0aa2c0 !important; }
+.btn-cyan[disabled] { background-color: #e9ecef !important; color: #adb5bd !important; }
+
+button[disabled] mat-icon { color: #ccc !important; }
+button[disabled] { cursor: not-allowed !important; background-color: transparent !important; }
+
+mat-form-field { width: 100%; }

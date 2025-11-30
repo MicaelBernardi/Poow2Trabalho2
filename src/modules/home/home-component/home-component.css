@@ -1,0 +1,16 @@
+/* Garante comportamento de link clicável e transição suave */
+.menu-link {
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+/* Quando passar o mouse, fica preto */
+.menu-link:hover {
+  color: #000000 !important;
+}
+
+/* Quando estiver na página (Ativado pelo routerLinkActive), força preto e negrito */
+.active-link {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}

@@ -1,0 +1,93 @@
+<div class="container py-5">
+
+  <div class="text-center mb-5">
+    <h1 class="display-6 fw-bold text-dark">Painel de Agendamentos de Revisões</h1>
+    <p class="text-secondary fs-5">
+      Acesse as opções abaixo para gerenciar cadastros e agendamentos de revisões dos veículos dos clientes.
+    </p>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+
+    <div class="col-md-4">
+      <mat-card class="h-100 text-center custom-card p-4">
+        <div class="mb-3 icon-blue">
+          <mat-icon class="large-icon">person_add</mat-icon>
+        </div>
+        <mat-card-title class="fw-bold mb-3">Cadastro de Clientes</mat-card-title>
+        <mat-card-content>
+          <p class="text-secondary">
+            Adicione e gerencie os dados dos clientes da concessionária.
+          </p>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-content-center pb-4">
+          <button mat-flat-button class="custom-btn btn-blue" routerLink="/home/cliente">
+            Acessar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-md-4">
+      <mat-card class="h-100 text-center custom-card p-4">
+        <div class="mb-3 icon-green">
+          <mat-icon class="large-icon">build</mat-icon>
+        </div>
+        <mat-card-title class="fw-bold mb-3">Serviços Oferecidos</mat-card-title>
+        <mat-card-content>
+          <p class="text-secondary">
+            Configure os tipos de revisões e manutenções disponíveis.
+          </p>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-content-center pb-4">
+          <button mat-flat-button class="custom-btn btn-green" routerLink="/home/servico">
+            Acessar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="col-md-4">
+      <mat-card class="h-100 text-center custom-card p-4">
+        <div class="mb-3 icon-yellow">
+          <mat-icon class="large-icon">groups</mat-icon>
+        </div>
+        <mat-card-title class="fw-bold mb-3">Cadastro de Funcionários</mat-card-title>
+        <mat-card-content>
+          <p class="text-secondary">
+            Inclua e edite atendentes responsáveis pelos agendamentos.
+          </p>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-content-center pb-4">
+          <button mat-flat-button class="custom-btn btn-yellow text-dark" routerLink="/home/funcionario">
+            Acessar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="row g-4 mt-3 justify-content-center">
+
+    <div class="col-md-4">
+      <mat-card class="h-100 text-center custom-card p-4">
+        <div class="mb-3 icon-cyan">
+          <mat-icon class="large-icon">event_available</mat-icon>
+        </div>
+        <mat-card-title class="fw-bold mb-3">Lista de Agendamentos</mat-card-title>
+        <mat-card-content>
+          <p class="text-secondary">
+            Consulte e crie novos agendamentos de revisões.
+          </p>
+        </mat-card-content>
+        <mat-card-actions class="d-flex justify-content-center pb-4">
+          <button mat-flat-button class="custom-btn btn-cyan" routerLink="/home/agendamento">
+            Acessar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+  </div>
+</div>

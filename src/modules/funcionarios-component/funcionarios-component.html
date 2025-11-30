@@ -1,0 +1,111 @@
+<div class="container py-5">
+
+  <div class="text-center mb-4">
+    <h1 class="display-6 fw-bold text-dark">Gerenciar Funcionários</h1>
+  </div>
+
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-8 col-lg-6">
+
+      <mat-card class="p-4 shadow-sm border-0 bg-white">
+
+        <div class="mb-4 text-center">
+          <h2 class="fs-5 fw-bold text-warning m-0 d-flex justify-content-center align-items-center gap-2">
+            @if (funcionarioForm.get('id')?.value) {
+              <mat-icon>edit</mat-icon> <span>Editar Funcionário</span>
+            } @else {
+              <mat-icon>person_add</mat-icon> <span>Novo Funcionário</span>
+            }
+          </h2>
+        </div>
+
+        <form [formGroup]="funcionarioForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-3">
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Nome Completo</mat-label>
+            <input matInput formControlName="nome" placeholder="Ex: Ana Souza">
+            <mat-icon matSuffix>person</mat-icon>
+            @if (nome.hasError('required')) { <mat-error>Nome é obrigatório</mat-error> }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" placeholder="exemplo@email.com" type="email">
+            <mat-icon matSuffix>email</mat-icon>
+            @if (email.hasError('required')) { <mat-error>E-mail é obrigatório</mat-error> }
+            @if (email.hasError('email')) { <mat-error>E-mail inválido</mat-error> }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="hideSenha ? 'password' : 'text'" formControlName="senha" placeholder="Digite a senha">
+
+            <button mat-icon-button matSuffix type="button" (click)="hideSenha = !hideSenha" [attr.aria-label]="'Ocultar senha'" [attr.aria-pressed]="hideSenha">
+              <mat-icon>{{hideSenha ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+
+            @if (senha.hasError('required')) { <mat-error>Senha é obrigatória</mat-error> }
+          </mat-form-field>
+
+          <div class="d-grid gap-2 mt-2">
+            <button mat-flat-button class="btn-yellow py-4 fs-6 text-dark" type="submit" [disabled]="funcionarioForm.invalid">
+              @if (funcionarioForm.get('id')?.value) { Salvar Alterações } @else { Cadastrar }
+            </button>
+
+            @if (funcionarioForm.get('id')?.value) {
+              <button mat-stroked-button color="warn" type="button" (click)="cancelarEdicao()">
+                Cancelar
+              </button>
+            }
+          </div>
+
+        </form>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+
+      <h2 class="text-center mb-3 fw-bold text-dark fs-4">Equipe Cadastrada</h2>
+
+      <div class="mat-elevation-z2 rounded overflow-hidden border">
+
+        <table mat-table [dataSource]="funcionarios" class="w-100 bg-white">
+
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark py-3"> Nome </th>
+            <td mat-cell *matCellDef="let element" class="py-3"> {{ element.nome }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark py-3"> E-mail </th>
+            <td mat-cell *matCellDef="let element" class="py-3"> {{ element.email }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark text-center py-3"> Opções </th>
+            <td mat-cell *matCellDef="let element" class="text-center py-3">
+              <button mat-icon-button class="text-warning" (click)="editar(element)" matTooltip="Editar">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="excluir(element.id)" matTooltip="Excluir">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="linha-hover"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center py-5 text-secondary fst-italic" colspan="3">
+              Nenhum funcionário encontrado.
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

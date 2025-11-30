@@ -1,0 +1,177 @@
+<div class="container py-5">
+
+  <div class="text-center mb-4">
+    <h1 class="display-6 fw-bold text-dark">Agenda de Revisões</h1>
+  </div>
+
+  <div class="d-flex justify-content-center mb-5">
+    <div class="bg-white p-3 rounded shadow-sm border d-flex align-items-center gap-2" style="max-width: 400px;">
+      <mat-icon class="text-secondary">filter_list</mat-icon>
+      <mat-form-field appearance="outline" class="w-100 mb-0 filtro-centralizado" subscriptSizing="dynamic">
+        <mat-label>Filtrar por Status</mat-label>
+        <mat-select [(value)]="statusFiltro" (selectionChange)="filtrar($event.value)">
+          <mat-option value="">-- Todos --</mat-option>
+          <mat-option value="Agendado">Agendado</mat-option>
+          <mat-option value="Finalizado">Finalizado</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-5">
+    <div class="col-md-10 col-lg-8">
+
+      <mat-card class="p-4 shadow-sm border-0 bg-white">
+
+        <div class="mb-4 text-center">
+          <h2 class="fs-5 fw-bold text-info m-0 d-flex justify-content-center align-items-center gap-2">
+            @if (agendamentoForm.get('id')?.value) {
+              <mat-icon>edit_calendar</mat-icon> <span>Editar Agendamento</span>
+            } @else {
+              <mat-icon>calendar_add_on</mat-icon> <span>Novo Agendamento</span>
+            }
+          </h2>
+        </div>
+
+        <form [formGroup]="agendamentoForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Data</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="data" placeholder="DD/MM/AAAA" readonly>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if (agendamentoForm.get('data')!.hasError('required')) { <mat-error>Data obrigatória</mat-error> }
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="cliente" [compareWith]="compareById">
+                  <mat-option>-- Selecione --</mat-option>
+                  @for (c of clientes; track c.id) {
+                    <mat-option [value]="c">{{ c.nome }}</mat-option>
+                  }
+                </mat-select>
+                @if (agendamentoForm.get('cliente')!.hasError('required')) { <mat-error>Cliente obrigatório</mat-error> }
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Funcionário Responsável</mat-label>
+                <mat-select formControlName="funcionario" [compareWith]="compareById">
+                  <mat-option>-- Selecione --</mat-option>
+                  @for (f of funcionarios; track f.id) {
+                    <mat-option [value]="f">{{ f.nome }}</mat-option>
+                  }
+                </mat-select>
+                @if (agendamentoForm.get('funcionario')!.hasError('required')) { <mat-error>Funcionário obrigatório</mat-error> }
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Serviço</mat-label>
+                <mat-select formControlName="servico" [compareWith]="compareById">
+                  <mat-option>-- Selecione --</mat-option>
+                  @for (s of servicos; track s.id) {
+                    <mat-option [value]="s">{{ s.descricao }} (R$ {{ s.valor }})</mat-option>
+                  }
+                </mat-select>
+                @if (agendamentoForm.get('servico')!.hasError('required')) { <mat-error>Serviço obrigatório</mat-error> }
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 mt-3">
+            <button mat-flat-button class="btn-cyan py-4 fs-6 text-white" type="submit" [disabled]="agendamentoForm.invalid">
+              @if (agendamentoForm.get('id')?.value) { Salvar Alterações } @else { Agendar }
+            </button>
+
+            @if (agendamentoForm.get('id')?.value) {
+              <button mat-stroked-button color="warn" type="button" (click)="cancelarEdicao()">
+                Cancelar
+              </button>
+            }
+          </div>
+
+        </form>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-12">
+
+      <div class="mat-elevation-z2 rounded overflow-hidden border">
+
+        <table mat-table [dataSource]="agendamentos" class="w-100 bg-white">
+
+          <ng-container matColumnDef="data">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark py-3"> Data </th>
+
+            <td mat-cell *matCellDef="let element" class="py-3">
+              {{ element.data | date:'dd/MM/yyyy':'UTC' }}
+            </td>
+
+          </ng-container>
+
+          <ng-container matColumnDef="cliente">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark py-3"> Cliente </th>
+            <td mat-cell *matCellDef="let element" class="py-3"> {{ element.cliente?.nome }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="funcionario">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark py-3"> Funcionário </th>
+            <td mat-cell *matCellDef="let element" class="py-3"> {{ element.funcionario?.nome }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="servico">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark py-3"> Serviço </th>
+            <td mat-cell *matCellDef="let element" class="py-3"> {{ element.servico?.descricao }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark py-3"> Status </th>
+            <td mat-cell *matCellDef="let element" class="py-3">
+              <span class="badge" [ngClass]="{'bg-warning text-dark': element.status === 'Agendado', 'bg-success': element.status === 'Finalizado'}">
+                {{ element.status }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef class="bg-light fw-bold text-dark text-center py-3"> Opções </th>
+            <td mat-cell *matCellDef="let element" class="text-center py-3">
+              <button mat-icon-button class="text-warning" (click)="editar(element)" matTooltip="Editar" [disabled]="element.status === 'Finalizado'">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="excluir(element.id)" matTooltip="Excluir" [disabled]="element.status === 'Finalizado'">
+                <mat-icon>delete</mat-icon>
+              </button>
+              @if (element.status === 'Agendado') {
+                <button mat-icon-button class="text-success" (click)="finalizar(element.id)" matTooltip="Finalizar Atendimento">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+              }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="linha-hover"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center py-5 text-secondary fst-italic" colspan="6">
+              Nenhum agendamento encontrado.
+            </td>
+          </tr>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

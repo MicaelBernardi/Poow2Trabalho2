@@ -1,0 +1,26 @@
+input[matInput] {
+  padding-left: 12px !important;
+}
+
+.linha-hover {
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+.linha-hover:hover {
+  background-color: #fff3cd !important;
+}
+
+.btn-yellow {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+  transition: background-color 0.3s;
+}
+.btn-yellow:hover:not([disabled]) {
+  background-color: #e0a800 !important;
+}
+.btn-yellow[disabled] {
+  background-color: #e9ecef !important;
+  color: #adb5bd !important;
+}
+
+mat-form-field { width: 100%; }
