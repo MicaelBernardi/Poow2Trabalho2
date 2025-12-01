@@ -1,8 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
-// Imports do Material
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,9 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-// Imports do Projeto
-import { ClienteService } from '../../core/services/clientes.service'; // Ajuste o caminho se necessário
+import { ClienteService } from '../../core/services/clientes.service';
 import { Cliente } from './cliente.model';
 
 @Component({
@@ -44,7 +40,7 @@ export class ClienteComponent implements OnInit {
     private fb: FormBuilder,
     private clienteService: ClienteService,
     private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef // <--- 1. Injetado para corrigir o erro NG0100
+    private cdr: ChangeDetectorRef
   ) {
     this.clienteForm = this.fb.group({
       id: [null],
@@ -62,7 +58,6 @@ export class ClienteComponent implements OnInit {
     this.clienteService.listar().subscribe({
       next: (dados) => {
         this.clientes = dados;
-        // 2. Força o Angular a detectar mudanças e atualizar a tabela imediatamente
         this.cdr.detectChanges();
       },
       error: (erro) => {
@@ -80,9 +75,8 @@ export class ClienteComponent implements OnInit {
         next: (resposta) => {
           const msg = cliente.id ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!';
           this.mostrarMensagem(msg);
-
-          this.cancelarEdicao(); // Limpa o form
-          this.carregarClientes(); // Recarrega a tabela
+          this.cancelarEdicao();
+          this.carregarClientes();
         },
         error: (erro) => {
           console.error('Erro ao salvar:', erro);

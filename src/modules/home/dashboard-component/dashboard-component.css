@@ -1,47 +1,26 @@
-/* === 1. Estilização do CARD (Para ficar "plano" e com borda suave) === */
-
-/* Sobrescreve o estilo padrão do Card do Material 3 */
 .custom-card.mat-mdc-card {
-  /* Remove a sombra padrão forte */
   box-shadow: none !important;
-  /* Adiciona uma borda cinza muito clara */
   border: 1px solid #e9ecef;
-  /* Cantos arredondados */
   border-radius: 8px;
-  /* Cor de fundo branca */
   background-color: #fff;
 }
 
-/* === 2. Estilização dos ÍCONES (Tamanho grande) === */
-
-/* Aumenta drasticamente o tamanho do ícone */
 .large-icon {
-  /* O tamanho da fonte controla o tamanho do ícone no Material Symbols */
   font-size: 64px !important;
   width: 64px !important;
   height: 64px !important;
 }
 
-/* Cores dos ícones */
 .icon-blue { color: #0d6efd; }
 .icon-green { color: #198754; }
 .icon-yellow { color: #ffc107; }
 .icon-cyan { color: #0dcaf0; }
-
-
-/* === 3. Estilização dos BOTÕES (Largura, centralização e cores) === */
-
-/* Estilo base para todos os botões customizados */
 .custom-btn {
-  /* Define uma largura fixa mais larga que o padrão */
   width: 60%;
-  /* Garante um pouco de altura */
   min-height: 40px;
   font-weight: 500;
 }
 
-/* Cores específicas dos botões (Igualando o Bootstrap/Imagem Alvo) */
-/* O !important é necessário para sobrescrever as cores padrão do mat-flat-button */
 .btn-blue {
   background-color: #0d6efd !important;
   color: white !important;
@@ -54,7 +33,6 @@
 
 .btn-yellow {
   background-color: #ffc107 !important;
-  /* Cor do texto preta para o amarelo, conforme a imagem alvo */
   color: #212529 !important;
 }
 
@@ -63,8 +41,7 @@
   color: white !important;
 }
 
-/* Ajuste fino no conteúdo do card para dar espaçamento */
 mat-card-content {
   margin-bottom: 20px;
-  min-height: 50px; /* Mantém altura uniforme se o texto for curto */
+  min-height: 50px;
 }

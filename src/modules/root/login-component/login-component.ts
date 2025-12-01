@@ -3,7 +3,6 @@ import {Router, RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../../core/services/auth-service';
 import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
-import {MatCard, MatCardActions, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 
 @Component({
@@ -12,10 +11,8 @@ import {MatButton} from '@angular/material/button';
   imports: [
     MatFormField,
     ReactiveFormsModule,
-    MatCardActions,
     MatError,
     MatLabel,
-    RouterLink,
     MatButton,
     MatInput
   ],
@@ -42,7 +39,7 @@ export class LoginComponent {
         next: (response) => {
           console.log('Login com sucesso, token', response.token);
           this.authService.setToken(response.token);
-          this.router.navigate(['/home']); // Redireciona para /home
+          this.router.navigate(['/home']);
         },
         error: (err) => {
           console.log('Login falhou', err);

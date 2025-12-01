@@ -1,8 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef, Injectable } from '@angular/core'; // Adicionei Injectable
+import { Component, OnInit, ChangeDetectorRef, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
-// Imports Visuais
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,13 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
-// Imports de Data
 import { MatDatepickerModule } from '@angular/material/datepicker';
-// Importe DateAdapter e MAT_DATE_FORMATS
 import { MatNativeDateModule, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-
-// Services e Models (Seus imports continuam iguais)
 import { AgendamentoService } from '../../core/services/agendamentos.service';
 import { ClienteService } from '../../core/services/clientes.service';
 import { FuncionarioService } from '../../core/services/funcionarios.service';
@@ -28,7 +21,6 @@ import { Cliente } from '../clientes-component/cliente.model';
 import { Funcionario } from '../funcionarios-component/funcionario.model';
 import { Servico } from '../servicos-component/servico.model';
 
-// === 1. DEFINIÇÃO DO FORMATO ===
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -41,7 +33,6 @@ export const MY_FORMATS = {
   },
 };
 
-// === 2. ADAPTADOR CUSTOMIZADO (Força DD/MM/AAAA) ===
 @Injectable()
 export class CustomDateAdapter extends NativeDateAdapter {
   override format(date: Date, displayFormat: Object): string {
@@ -65,19 +56,14 @@ export class CustomDateAdapter extends NativeDateAdapter {
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  // === 3. REGISTRO DOS PROVIDERS ===
   providers: [
-    { provide: DateAdapter, useClass: CustomDateAdapter }, // Usa nossa classe customizada
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }    // Usa nosso formato
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ],
   templateUrl: 'agendamentos-component.html',
   styleUrls: ['agendamentos-component.css']
 })
 export class AgendamentoComponent implements OnInit {
-
-  // ... (O resto do seu código da classe AgendamentoComponent continua IGUAL) ...
-  // Copie o conteúdo da classe da resposta anterior para cá.
-
   agendamentoForm!: FormGroup;
   agendamentos: Agendamento[] = [];
   clientes: Cliente[] = [];

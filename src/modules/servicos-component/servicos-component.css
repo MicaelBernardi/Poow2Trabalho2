@@ -15,9 +15,11 @@ input[matInput] {
   color: white !important;
   transition: background-color 0.3s;
 }
+
 .btn-green:hover:not([disabled]) {
   background-color: #157347 !important;
 }
+
 .btn-green[disabled] {
   background-color: #e9ecef !important;
   color: #adb5bd !important;

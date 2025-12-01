@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { Agendamento } from '../../modules/agendamentos-component/agendamento.model';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,6 @@ export class AgendamentoService {
 
   constructor(private http: HttpClient) {}
 
-  // Aceita um status opcional para filtro
   listar(status?: string): Observable<Agendamento[]> {
     let params = new HttpParams();
     if (status) {
@@ -32,7 +31,6 @@ export class AgendamentoService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // Método específico para finalizar
   finalizar(id: number): Observable<void> {
     return this.http.patch<void>(`${this.apiUrl}/${id}/finalizar`, {});
   }

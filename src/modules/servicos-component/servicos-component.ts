@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,7 +9,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
 import { ServicoService } from '../../core/services/servicos.service';
 import { Servico } from './servico.model';
 
@@ -51,7 +49,6 @@ export class ServicoComponent implements OnInit {
     });
   }
 
-  // Getters
   get descricao() { return this.servicoForm.get('descricao')!; }
   get valor() { return this.servicoForm.get('valor')!; }
 
@@ -59,15 +56,11 @@ export class ServicoComponent implements OnInit {
     this.carregarServicos();
   }
 
-  // === A CORREÇÃO ESTÁ AQUI ===
   carregarServicos() {
     this.servicoService.listar().subscribe({
       next: (dados) => {
-        // O setTimeout joga a atualização para o "fim da fila" de processamento
-        // Isso dá tempo para o Angular terminar de desenhar a tela antes de receber os dados
         setTimeout(() => {
           this.servicos = dados;
-          // Opcional: cdr.detectChanges() aqui dentro garante a atualização visual
           this.cdr.detectChanges();
         }, 0);
       },

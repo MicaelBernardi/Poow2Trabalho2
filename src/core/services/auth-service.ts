@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,6 @@ export class AuthService {
 
   setToken(token: string) {
     localStorage.setItem(this.TOKEN_KEY, token);
-    // ... lógica de decodificar token se necessário
   }
 
   getToken(): string | null {

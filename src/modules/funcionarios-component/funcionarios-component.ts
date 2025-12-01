@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,7 +9,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
 import { FuncionarioService } from '../../core/services/funcionarios.service';
 import { Funcionario } from './funcionario.model';
 
@@ -36,11 +34,7 @@ export class FuncionarioComponent implements OnInit {
 
   funcionarioForm!: FormGroup;
   funcionarios: Funcionario[] = [];
-
-  // Na tabela mostramos apenas Nome e Email (Senha nunca se mostra em tabela)
   displayedColumns: string[] = ['nome', 'email', 'acoes'];
-
-  // Variável para controlar a visibilidade da senha
   hideSenha = true;
 
   constructor(
@@ -52,13 +46,11 @@ export class FuncionarioComponent implements OnInit {
     this.funcionarioForm = this.fb.group({
       id: [null],
       nome: ['', Validators.required],
-      // Adicionado validador de formato de email
       email: ['', [Validators.required, Validators.email]],
       senha: ['', Validators.required]
     });
   }
 
-  // === GETTERS ===
   get nome() { return this.funcionarioForm.get('nome')!; }
   get email() { return this.funcionarioForm.get('email')!; }
   get senha() { return this.funcionarioForm.get('senha')!; }
@@ -100,14 +92,8 @@ export class FuncionarioComponent implements OnInit {
   }
 
   editar(func: Funcionario) {
-    // Ao editar, carregamos os dados.
-    // OBS: Normalmente o backend não retorna a senha por segurança.
-    // O usuário terá que digitar uma nova senha ou você deve ajustar a lógica se a senha for opcional na edição.
     this.funcionarioForm.patchValue(func);
-
-    // Limpa o campo senha para não mostrar hash (opcional, depende do seu backend)
     this.funcionarioForm.get('senha')?.setValue('');
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
